@@ -14,12 +14,40 @@
  */
 
 import { loadConfig, CodeCheckEngine, AnthropicLLMClient } from '@codecheck/core'
+import type { ScopePlugin, TestType } from '@codecheck/core'
 import { UnitScopePlugin } from '@codecheck/scope-unit'
 import { SmokeScopePlugin } from '@codecheck/scope-smoke'
+import { FunctionalScopePlugin } from '@codecheck/scope-functional'
+import { SanityScopePlugin } from '@codecheck/scope-sanity'
+import { IntegrationScopePlugin } from '@codecheck/scope-integration'
+import { ApiScopePlugin } from '@codecheck/scope-api'
 import { TerminalOutputPlugin } from '@codecheck/output-terminal'
 import { getStagedFiles } from './getStagedFiles.js'
 import ora from 'ora'
 import chalk from 'chalk'
+
+/** All available scope plugins, keyed by test type. */
+const ALL_SCOPE_PLUGINS: Record<string, () => ScopePlugin> = {
+  unit: () => new UnitScopePlugin(),
+  smoke: () => new SmokeScopePlugin(),
+  functional: () => new FunctionalScopePlugin(),
+  sanity: () => new SanityScopePlugin(),
+  integration: () => new IntegrationScopePlugin(),
+  api: () => new ApiScopePlugin(),
+}
+
+function buildScopePlugins(testTypes: TestType[]): ScopePlugin[] {
+  const plugins: ScopePlugin[] = []
+  for (const type of testTypes) {
+    const factory = ALL_SCOPE_PLUGINS[type]
+    if (factory) plugins.push(factory())
+  }
+  // Always include unit + smoke as fallback if nothing matched
+  if (plugins.length === 0) {
+    plugins.push(new UnitScopePlugin(), new SmokeScopePlugin())
+  }
+  return plugins
+}
 
 async function main(): Promise<void> {
   const cwd = process.cwd()
@@ -49,7 +77,7 @@ async function main(): Promise<void> {
   }
 
   // ─── Build Plugins ────────────────────────────────────────────────────────
-  const scopePlugins = [new UnitScopePlugin(), new SmokeScopePlugin()]
+  const scopePlugins = buildScopePlugins(config.testTypes)
   const outputPlugin = new TerminalOutputPlugin()
 
   // ─── LLM Client ───────────────────────────────────────────────────────────

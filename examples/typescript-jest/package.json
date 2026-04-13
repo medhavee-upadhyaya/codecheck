@@ -1,0 +1,35 @@
+{
+  "name": "codecheck-example-typescript-jest",
+  "version": "0.1.0",
+  "description": "Example TypeScript project that dogfoods CodeCheck with Jest",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "prepare": "husky",
+    "typecheck": "tsc --noEmit"
+  },
+  "codecheck": {
+    "trigger": "oncommit",
+    "testTypes": ["unit", "smoke", "functional", "sanity", "integration"],
+    "output": ["terminal"],
+    "model": "claude-sonnet-4-6",
+    "language": "typescript",
+    "framework": "jest",
+    "threshold": 0.80,
+    "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
+    "failOnError": false,
+    "keepGeneratedTests": false,
+    "cacheTtlDays": 7,
+    "concurrency": 3
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^22.0.0",
+    "husky": "^9.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "typescript": "^5.6.0"
+  }
+}

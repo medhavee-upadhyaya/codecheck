@@ -1,0 +1,2 @@
+#!/bin/sh
+node ../../packages/trigger-oncommit/dist/bin.js

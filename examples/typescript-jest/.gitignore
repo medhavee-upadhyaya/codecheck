@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.codecheck-cache/
+.codecheck-tmp/
