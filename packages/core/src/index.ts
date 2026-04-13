@@ -61,3 +61,9 @@ export { runTests } from './runner/index.js'
 // Engine
 export { CodeCheckEngine } from './engine.js'
 export type { EngineOptions, RunnerFn } from './engine.js'
+
+// Learning — adaptive per-project prompting
+export { loadProfile, saveProfile, emptyProfile } from './learning/profile.js'
+export type { ProjectProfile, PassFailCounts } from './learning/profile.js'
+export { updateProfile, humanizeError } from './learning/analyzer.js'
+export { buildProfileContext } from './learning/injector.js'

@@ -14,6 +14,9 @@ import { computeCacheKey, getCached, setCached } from './cache/index.js'
 import { generateTestFile } from './generator/index.js'
 import { AnthropicLLMClient } from './llm/client.js'
 import { runTests } from './runner/index.js'
+import { loadProfile, saveProfile } from './learning/profile.js'
+import { updateProfile } from './learning/analyzer.js'
+import { buildProfileContext } from './learning/injector.js'
 import type {
   CodeCheckConfig,
   GeneratedTestFile,
@@ -51,6 +54,8 @@ export class CodeCheckEngine {
   private readonly llmClient: LLMClient
   private readonly runner: RunnerFn
   private readonly cwd: string
+  /** Populated at the start of each run() call from the on-disk project profile */
+  private profileContext: string | null = null
 
   constructor(
     config: CodeCheckConfig,
@@ -79,11 +84,20 @@ export class CodeCheckEngine {
     const files = filterFiles(changedFiles, this.config)
     if (files.length === 0) return []
 
-    // 2. Extract testable targets from all files (in parallel)
+    // 2. Load the project profile and build adaptive prompt context
+    //    (silently skipped if .codecheck-results/ doesn't exist yet)
+    try {
+      const profile = await loadProfile(this.cwd)
+      this.profileContext = buildProfileContext(profile)
+    } catch {
+      this.profileContext = null
+    }
+
+    // 3. Extract testable targets from all files (in parallel)
     const allTargets = await this.extractAllTargets(files)
     if (allTargets.length === 0) return []
 
-    // 3. For each target, generate test cases (with cache) and run them
+    // 4. For each target, generate test cases (with cache) and run them
     const semaphore = new Semaphore(this.config.concurrency)
     const resultGroups = await Promise.all(
       allTargets.map((target) =>
@@ -91,7 +105,18 @@ export class CodeCheckEngine {
       )
     )
 
-    return resultGroups.flat()
+    const allResults = resultGroups.flat()
+
+    // 5. Update the project profile with this run's results (best-effort)
+    try {
+      const profile = await loadProfile(this.cwd)
+      const updated = updateProfile(profile, allResults)
+      await saveProfile(this.cwd, updated)
+    } catch {
+      // Never block the commit/run if profile save fails
+    }
+
+    return allResults
   }
 
   // ─── Private Methods ────────────────────────────────────────────────────────
@@ -155,6 +180,13 @@ export class CodeCheckEngine {
   ): Promise<TestCase[]> {
     const allCases: TestCase[] = []
 
+    // Append adaptive project-learning context to the prompt suffix.
+    // This tells the LLM what test patterns work (and don't) in this project.
+    const fullSuffix =
+      this.profileContext != null
+        ? `${promptSuffix}\n\n${this.profileContext}`
+        : promptSuffix
+
     // Request all test types in a single LLM call for efficiency
     const cacheKey = computeCacheKey(
       target.code,
@@ -170,7 +202,7 @@ export class CodeCheckEngine {
     const cases = await this.llmClient.generateTestCases(
       target,
       this.config.testTypes,
-      promptSuffix,
+      fullSuffix,
       this.config
     )
     allCases.push(...cases)

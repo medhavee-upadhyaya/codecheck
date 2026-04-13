@@ -58,6 +58,6 @@ export class TerminalOutputPlugin implements OutputPlugin {
   }
 }
 
-export { formatHeader, formatTargetHeader, formatResult, formatSummary, formatNoTargets } from './formatter.js'
+export { formatHeader, formatTargetHeader, formatResult, formatSummary, formatNoTargets, humanizeError } from './formatter.js'
 
 export default TerminalOutputPlugin

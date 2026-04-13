@@ -2,10 +2,10 @@
 
 > This file is auto-updated at the end of every session. Read this first.
 
-## Current Phase: Phase 3 — SESSION 9 COMPLETE ✅
+## Current Phase: SESSION 10 COMPLETE ✅ — Adaptive Learning + Human-readable Output
 
 **Last updated:** 2026-04-13  
-**Status:** ALL PHASES COMPLETE — 16 packages, 275 tests, all passing. Project is publish-ready.
+**Status:** 16 packages, 297 tests, all passing.
 
 ---
 
@@ -25,6 +25,35 @@ pytest generator + runner, examples/python-pytest, --dry-run for trigger-oncommi
 
 ### Session 8 ✅ — Dashboard + publish prep
 output-dashboard, codecheck-serve, publish metadata, scripts/publish.sh
+
+### Session 10 (2026-04-13) ✅ COMPLETE — Adaptive Learning + Plain-English Output
+
+**New module: `packages/core/src/learning/`**
+- `profile.ts` — `ProjectProfile` type, `loadProfile()`, `saveProfile()`, `emptyProfile()`
+  - Stored in `.codecheck-results/project-profile.json` per project
+  - Tracks: totalRuns, passRateByTestType, passRateByCategory, topFailureReasons, successfulExamples
+- `analyzer.ts` — `updateProfile(profile, results)`, `humanizeError(error)`
+  - Updates running pass/fail counts, collects failure patterns, successful examples
+  - `humanizeError()` translates raw assertion errors to plain English
+- `injector.ts` — `buildProfileContext(profile)` → string appended to LLM prompt
+  - Returns null if < 3 runs (not enough signal yet)
+  - Tells the LLM: pass rates by type/category, what to generate more of, what to avoid, proven examples
+
+**Engine changes (engine.ts):**
+- Loads project profile at start of every `run()` call
+- Appends `profileContext` to the scope plugin's `promptSuffix` before each LLM call
+- After all tests complete, updates and saves the profile (best-effort, never blocks)
+- Works for both `trigger-oncommit` and `trigger-onsave` — any trigger that calls `engine.run()`
+
+**Terminal output changes (formatter.ts):**
+- `humanizeError()` exported — translates technical errors to one-line plain English
+- Failed test output now shows TWO layers:
+  1. `→ Crashed on null or undefined input — the function needs a null check` (yellow, plain English)
+  2. `AssertionError: expected undefined to equal...` (dimmed technical detail)
+
+**Tests:** 22 new tests in `packages/core/src/learning/__tests__/`
+- `analyzer.test.ts` — 14 tests for humanizeError + updateProfile
+- `injector.test.ts` — 8 tests for buildProfileContext
 
 ### Session 9 (2026-04-13) ✅ COMPLETE
 
@@ -52,7 +81,7 @@ output-dashboard, codecheck-serve, publish metadata, scripts/publish.sh
 
 | Package | Tests | Status |
 |---|---|---|
-| @codecheck/core | 131 | ✅ |
+| @codecheck/core | 153 | ✅ (+22 learning tests) |
 | @codecheck/init | 15 | ✅ |
 | @codecheck/output-dashboard | 14 | ✅ |
 | @codecheck/output-github | 12 | ✅ |
@@ -68,7 +97,7 @@ output-dashboard, codecheck-serve, publish metadata, scripts/publish.sh
 | @codecheck/scope-unit | 6 | ✅ |
 | @codecheck/trigger-oncommit | 13 | ✅ |
 | @codecheck/trigger-onsave | 9 | ✅ |
-| **Total** | **275** | **✅ all passing** |
+| **Total** | **297** | **✅ all passing** |
 
 ---
 
@@ -94,7 +123,7 @@ codecheck/
 │   └── plugins.md               ✅
 │
 ├── packages/
-│   ├── core/                    ✅
+│   ├── core/                    ✅ + learning/ (profile, analyzer, injector)
 │   ├── scope-unit/              ✅
 │   ├── scope-smoke/             ✅
 │   ├── scope-functional/        ✅
@@ -128,6 +157,10 @@ codecheck/
 6. **All packages have `publishConfig: { access: 'public' }`** — Required for scoped packages.
 7. **scope-regression with no flakiness data** — Returns all targets (no history = test everything).
 8. **scope-regression with failed targets** — Sorts them to the front; LLM focuses on failure-prone paths.
+9. **Adaptive learning cold start** — `buildProfileContext` returns null for the first 2 runs. Prompt stays clean until there's real signal.
+10. **Profile save is best-effort** — wrapped in try/catch; a disk write failure never blocks a commit or save trigger.
+11. **Profile is per-project** — stored in that project's `.codecheck-results/project-profile.json`. Two different repos never share learning data.
+12. **humanizeError fallback** — if the error doesn't match any known pattern, shows the first line truncated to 100 chars.
 
 ---
 
@@ -144,6 +177,9 @@ codecheck/
 | publish.sh order | core → scopes → outputs → triggers → init | Dependency order |
 | CI publish trigger | commit message prefix `release:` | Simple, no extra tooling |
 | regression sorting | failCount > 0 → front | Most important to retest |
+| Adaptive learning signal threshold | 3+ runs before injecting context | Avoids noisy signal from 1–2 runs |
+| Profile context placement | Appended to user prompt (not system) | System prompt stays static for caching |
+| humanizeError location | output-terminal/formatter.ts | Also exported from @codecheck/core |
 
 ---
 
@@ -151,7 +187,7 @@ codecheck/
 
 ```bash
 # From /Users/medha/Documents/Projects/codecheck
-npm test           # 275 tests, all passing
+npm test           # 297 tests, all passing
 npm run build      # all 16 packages
 
 # Start dashboard
