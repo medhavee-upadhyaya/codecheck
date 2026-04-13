@@ -246,3 +246,52 @@ describe('generateJestFile — content sanity', () => {
     expect(file1.filePath).not.toBe(file2.filePath)
   })
 })
+
+// ─── beforeEach and dynamic output support ────────────────────────────────────
+
+describe('generateJestFile — beforeEach and __dynamic__', () => {
+  const resetCase: TestCase = {
+    description: 'users.clear()',
+    input: null,
+    expectedOutput: null,
+    category: 'before-each',
+    testType: 'unit',
+    shouldThrow: false,
+  }
+
+  const dynamicCase: TestCase = {
+    description: 'returns a non-null timestamp',
+    input: null,
+    expectedOutput: '__dynamic__',
+    category: 'happy-path',
+    testType: 'unit',
+    shouldThrow: false,
+  }
+
+  it('emits beforeEach block for before-each category', () => {
+    const file = generateJestFile(noParamTarget, [resetCase, happyCase], CWD)
+    expect(file.content).toContain('beforeEach')
+    expect(file.content).toContain('users.clear()')
+  })
+
+  it('does not include before-each case as a regular it() block', () => {
+    const file = generateJestFile(noParamTarget, [resetCase, happyCase], CWD)
+    // beforeEach description should NOT appear as an it() label
+    expect(file.content).not.toContain("it('users.clear()'")
+  })
+
+  it('emits toBeDefined for __dynamic__ expectedOutput', () => {
+    const file = generateJestFile(noParamTarget, [dynamicCase], CWD)
+    expect(file.content).toContain('toBeDefined()')
+  })
+
+  it('emits not.toBeNull for __dynamic__ expectedOutput', () => {
+    const file = generateJestFile(noParamTarget, [dynamicCase], CWD)
+    expect(file.content).toContain('not.toBeNull()')
+  })
+
+  it('does not emit toEqual("__dynamic__") for dynamic case', () => {
+    const file = generateJestFile(noParamTarget, [dynamicCase], CWD)
+    expect(file.content).not.toContain('__dynamic__')
+  })
+})

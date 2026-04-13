@@ -1,0 +1,21 @@
+{
+  "name": "codecheck-example-python-pytest",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CodeCheck example — Python project with pytest test generation",
+  "codecheck": {
+    "trigger": "oncommit",
+    "testTypes": ["unit", "smoke"],
+    "output": ["terminal"],
+    "model": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "language": "python",
+    "framework": "pytest",
+    "threshold": 0.8,
+    "exclude": ["node_modules", "dist", "__pycache__", "*.pyc", ".venv", "venv"],
+    "concurrency": 3,
+    "failOnError": false,
+    "keepGeneratedTests": false,
+    "cacheTtlDays": 7
+  }
+}

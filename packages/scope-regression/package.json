@@ -1,7 +1,7 @@
 {
-  "name": "@codecheck/scope-snapshot",
+  "name": "@codecheck/scope-regression",
   "version": "0.1.0",
-  "description": "CodeCheck scope plugin — generates React component snapshot tests (Jest + React Testing Library)",
+  "description": "CodeCheck scope plugin — generates regression tests targeting previously-failed functions",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,9 +11,7 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
     "test": "vitest run",
@@ -47,12 +45,5 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": [
-    "codecheck",
-    "testing",
-    "snapshot",
-    "react",
-    "ai",
-    "code-generation"
-  ]
+  "keywords": ["codecheck", "testing", "regression", "ai", "code-generation"]
 }

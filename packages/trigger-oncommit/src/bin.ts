@@ -23,7 +23,9 @@ import { IntegrationScopePlugin } from '@codecheck/scope-integration'
 import { ApiScopePlugin } from '@codecheck/scope-api'
 import { E2EScopePlugin } from '@codecheck/scope-e2e'
 import { SnapshotScopePlugin } from '@codecheck/scope-snapshot'
+import { RegressionScopePlugin } from '@codecheck/scope-regression'
 import { TerminalOutputPlugin } from '@codecheck/output-terminal'
+import { DashboardOutputPlugin } from '@codecheck/output-dashboard'
 import { getStagedFiles } from './getStagedFiles.js'
 import ora from 'ora'
 import chalk from 'chalk'
@@ -38,6 +40,7 @@ const ALL_SCOPE_PLUGINS: Record<string, () => ScopePlugin> = {
   api: () => new ApiScopePlugin(),
   e2e: () => new E2EScopePlugin(),
   snapshot: () => new SnapshotScopePlugin(),
+  regression: () => new RegressionScopePlugin(),
 }
 
 function buildScopePlugins(testTypes: TestType[]): ScopePlugin[] {
@@ -55,6 +58,7 @@ function buildScopePlugins(testTypes: TestType[]): ScopePlugin[] {
 
 async function main(): Promise<void> {
   const cwd = process.cwd()
+  const isDryRun = process.argv.includes('--dry-run') || process.argv.includes('--dry')
 
   // ─── Load Config ───────────────────────────────────────────────────────────
   let config
@@ -80,9 +84,30 @@ async function main(): Promise<void> {
     process.exit(0)
   }
 
+  // ─── Dry-run mode ─────────────────────────────────────────────────────────
+  if (isDryRun) {
+    console.log(chalk.bold.cyan('\n[CodeCheck] Dry-run mode — no tests will be generated or run.\n'))
+    console.log(chalk.dim('Staged files that would be tested:'))
+    for (const f of stagedFiles) {
+      console.log(chalk.white(`  • ${f}`))
+    }
+    console.log()
+    console.log(chalk.dim('Config:'))
+    console.log(chalk.dim(`  testTypes:   ${config.testTypes.join(', ')}`))
+    console.log(chalk.dim(`  model:       ${config.model}`))
+    console.log(chalk.dim(`  threshold:   ${config.threshold}`))
+    console.log(chalk.dim(`  failOnError: ${config.failOnError}`))
+    console.log()
+    process.exit(0)
+  }
+
   // ─── Build Plugins ────────────────────────────────────────────────────────
   const scopePlugins = buildScopePlugins(config.testTypes)
-  const outputPlugin = new TerminalOutputPlugin()
+  const outputPlugins = [
+    new TerminalOutputPlugin(),
+    // Dashboard plugin writes results to .codecheck-results/ for codecheck-serve
+    new DashboardOutputPlugin(),
+  ]
 
   // ─── LLM Client ───────────────────────────────────────────────────────────
   const apiKey = process.env['ANTHROPIC_API_KEY']
@@ -116,11 +141,13 @@ async function main(): Promise<void> {
   }
 
   // ─── Report Results ───────────────────────────────────────────────────────
-  try {
-    await outputPlugin.report(results, config)
-  } catch (err) {
-    console.error(chalk.yellow('[CodeCheck] Could not render results.'))
-    console.error(chalk.dim(String(err)))
+  for (const outputPlugin of outputPlugins) {
+    try {
+      await outputPlugin.report(results, config)
+    } catch (err) {
+      console.error(chalk.yellow(`[CodeCheck] Could not render results (${outputPlugin.name}).`))
+      console.error(chalk.dim(String(err)))
+    }
   }
 
   // ─── Exit Code ────────────────────────────────────────────────────────────

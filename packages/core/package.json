@@ -11,7 +11,9 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
     "dev": "tsup src/index.ts --format esm --dts --watch",
@@ -30,5 +32,33 @@
     "tsup": "^8.5.0",
     "typescript": "^5.6.0",
     "vitest": "^4.1.0"
-  }
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Medhavee Upadhyaya",
+    "url": "https://github.com/medhavee"
+  },
+  "homepage": "https://github.com/medhavee/codecheck#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/medhavee/codecheck.git"
+  },
+  "bugs": {
+    "url": "https://github.com/medhavee/codecheck/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "codecheck",
+    "testing",
+    "ai",
+    "code-generation",
+    "test-automation",
+    "claude",
+    "anthropic"
+  ]
 }

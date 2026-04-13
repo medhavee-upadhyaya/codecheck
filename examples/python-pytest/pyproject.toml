@@ -1,0 +1,6 @@
+[tool.pytest.ini_options]
+testpaths = [".codecheck-tmp"]
+asyncio_mode = "auto"
+
+[tool.pyright]
+ignore = [".codecheck-tmp"]

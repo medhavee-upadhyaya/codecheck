@@ -4,20 +4,25 @@
 
 import type { CodeCheckConfig, GeneratedTestFile, TestCase, TestTarget } from '../types.js'
 import { generateJestFile } from './jest.js'
+import { generatePytestFile } from './pytest.js'
 
 /**
  * Generate a test file for the given target and test cases.
- * Routes to Jest (TypeScript) or Pytest (Python) based on the config.
+ * Routes to the right generator based on language and framework config.
  */
 export function generateTestFile(
   target: TestTarget,
   testCases: TestCase[],
   config: CodeCheckConfig,
-  cwd: string
+  cwd: string,
 ): GeneratedTestFile {
-  if (target.language === 'python') {
-    // Pytest generator is Phase 2 — stub for now
-    throw new Error('Python test generation is coming in Phase 2. Set language to "typescript".')
+  if (target.language === 'python' || config.framework === 'pytest') {
+    return generatePytestFile(target, testCases, cwd)
+  }
+
+  if (config.framework === 'vitest') {
+    // Vitest uses the same file format as Jest (it's API-compatible)
+    return generateJestFile(target, testCases, cwd)
   }
 
   // Default: Jest for TypeScript/JavaScript

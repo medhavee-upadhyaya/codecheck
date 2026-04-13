@@ -50,6 +50,7 @@ export type { MockFixture } from './llm/client.js'
 // Generator
 export { generateTestFile } from './generator/index.js'
 export { generateJestFile } from './generator/jest.js'
+export { generatePytestFile } from './generator/pytest.js'
 
 // Cache
 export { computeCacheKey, getCached, setCached, clearCache, getCacheStats } from './cache/index.js'

@@ -1,13 +1,10 @@
 /**
- * runner/index.ts — Executes generated test files via Jest and maps results back to TestResult[].
+ * runner/index.ts — Executes generated test files via Jest (TS/JS) or pytest (Python).
  *
- * Spawns `npx jest <file> --json --no-coverage` with CI=true env.
- * Jest writes its JSON report to stdout; all other output goes to stderr.
+ * Jest: Spawns `npx jest <file> --json --no-coverage`
+ * Pytest: Spawns `python -m pytest <file> -v --tb=short --no-header`
  *
- * Exit codes:
- *   0  = all tests passed
- *   1  = some tests failed (normal — not an error)
- *   2+ = jest crashed (throws TestRunnerError)
+ * Routes based on the generated file's framework field.
  */
 
 import { spawn } from 'node:child_process'
@@ -59,6 +56,9 @@ export async function runTests(
   await fs.writeFile(generatedFile.filePath, generatedFile.content, 'utf-8')
 
   try {
+    if (generatedFile.framework === 'pytest') {
+      return await runPytestFile(generatedFile, cwd, startTime)
+    }
     const jestOutput = await spawnJest(generatedFile.filePath, cwd)
     return mapResults(jestOutput, generatedFile, startTime)
   } finally {
@@ -250,4 +250,197 @@ function cleanFailureMessage(msg: string): string {
     .slice(0, 8) // keep first 8 non-empty lines
     .join('\n')
     .trim()
+}
+
+// ─── Pytest Runner ────────────────────────────────────────────────────────────
+
+/**
+ * Run a pytest file and map results back to TestResult[].
+ *
+ * Pytest output format (with -v --tb=short --no-header):
+ *   .codecheck-tmp/test_foo_abc.py::test_0_adds_two_numbers PASSED
+ *   .codecheck-tmp/test_foo_abc.py::test_1_handles_error FAILED
+ *
+ * We parse PASSED/FAILED lines and match by the test index in the function name.
+ */
+async function runPytestFile(
+  generatedFile: GeneratedTestFile,
+  cwd: string,
+  startTime: number,
+): Promise<TestResult[]> {
+  const output = await spawnPytest(generatedFile.filePath, cwd)
+  return mapPytestResults(output, generatedFile, startTime)
+}
+
+async function spawnPytest(testFilePath: string, cwd: string): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const pythonBin = findPythonBin(cwd)
+
+    const child = spawn(
+      pythonBin,
+      ['-m', 'pytest', testFilePath, '-v', '--tb=short', '--no-header', '-rN'],
+      {
+        cwd,
+        stdio: ['ignore', 'pipe', 'pipe'],
+        env: {
+          ...process.env,
+          PYTHONDONTWRITEBYTECODE: '1',
+          PYTHONPATH: cwd,
+        },
+      },
+    )
+
+    let stdout = ''
+    let stderr = ''
+
+    child.stdout?.on('data', (chunk: Buffer) => {
+      stdout += chunk.toString()
+    })
+    child.stderr?.on('data', (chunk: Buffer) => {
+      stderr += chunk.toString()
+    })
+
+    const timer = setTimeout(() => {
+      child.kill('SIGTERM')
+      reject(new TestRunnerError(`pytest timed out after ${RUNNER_TIMEOUT_MS}ms`, -1))
+    }, RUNNER_TIMEOUT_MS)
+
+    child.on('error', (err) => {
+      clearTimeout(timer)
+      reject(new TestRunnerError(`Failed to spawn pytest: ${err.message}`, -1))
+    })
+
+    child.on('close', (code) => {
+      clearTimeout(timer)
+      // pytest exits 0 (all pass), 1 (some fail), 2 (error), 5 (no tests collected)
+      if (code !== null && code > 1 && code !== 5) {
+        reject(
+          new TestRunnerError(
+            `pytest exited with code ${code}. stderr: ${stderr.slice(0, 500)}`,
+            code,
+          ),
+        )
+        return
+      }
+      resolve(stdout + '\n' + stderr)
+    })
+  })
+}
+
+/**
+ * Parse pytest -v output into TestResult[].
+ *
+ * Looks for lines matching:
+ *   ::test_{N}_{name} PASSED
+ *   ::test_{N}_{name} FAILED
+ */
+function mapPytestResults(
+  output: string,
+  generatedFile: GeneratedTestFile,
+  startTime: number,
+): TestResult[] {
+  const results: TestResult[] = []
+  const lines = output.split('\n')
+
+  // Parse results: map index → pass/fail
+  const resultByIndex = new Map<number, { passed: boolean; error?: string }>()
+
+  // Collect failure details from short traceback blocks
+  const failureDetails = new Map<number, string>()
+  let inFailure = false
+  let currentFailIdx = -1
+  let failureLines: string[] = []
+
+  for (const line of lines) {
+    const stripped = line.replace(/\x1B\[[0-9;]*m/g, '') // strip ANSI
+
+    // Detect test result lines: "::test_0_description PASSED" or "FAILED"
+    const resultMatch = /::test_(\d+)_\S+\s+(PASSED|FAILED)/.exec(stripped)
+    if (resultMatch != null) {
+      const idx = parseInt(resultMatch[1] ?? '0', 10)
+      const passed = resultMatch[2] === 'PASSED'
+      resultByIndex.set(idx, { passed })
+      if (!passed) {
+        currentFailIdx = idx
+        inFailure = false
+        failureLines = []
+      }
+      continue
+    }
+
+    // Collect failure details from FAILED lines in summary
+    const summaryMatch = /FAILED\s+\S+::test_(\d+)_\S+\s+-\s+(.+)/.exec(stripped)
+    if (summaryMatch != null) {
+      const idx = parseInt(summaryMatch[1] ?? '0', 10)
+      failureDetails.set(idx, (summaryMatch[2] ?? '').trim())
+    }
+  }
+
+  // Map back to TestCase[]
+  const regularCases = generatedFile.testCases.filter((tc) => tc.category !== 'before-each')
+
+  for (let idx = 0; idx < regularCases.length; idx++) {
+    const tc = regularCases[idx]
+    if (tc === undefined) continue
+
+    const result = resultByIndex.get(idx)
+    if (result !== undefined) {
+      const testResult: TestResult = {
+        testCase: tc,
+        target: generatedFile.target,
+        passed: result.passed,
+        duration: Date.now() - startTime,
+      }
+      const detail = failureDetails.get(idx)
+      if (!result.passed && detail != null) {
+        testResult.error = detail
+      }
+      results.push(testResult)
+    } else {
+      // pytest didn't report this test — synthesize a failed result
+      results.push({
+        testCase: tc,
+        target: generatedFile.target,
+        passed: false,
+        duration: Date.now() - startTime,
+        error: 'pytest did not report a result for this test',
+      })
+    }
+  }
+
+  // Fallback: if pytest reported no results at all (import error, syntax error)
+  if (resultByIndex.size === 0 && regularCases.length > 0) {
+    const errorLine = output
+      .split('\n')
+      .find((l) => l.includes('Error') || l.includes('error') || l.includes('FAILED'))
+    for (const tc of regularCases) {
+      results.push({
+        testCase: tc,
+        target: generatedFile.target,
+        passed: false,
+        duration: Date.now() - startTime,
+        error: errorLine?.trim() ?? 'pytest produced no test results',
+      })
+    }
+  }
+
+  return results
+}
+
+/**
+ * Find the Python binary. Checks for a virtualenv in the cwd first,
+ * then falls back to system python3/python.
+ */
+function findPythonBin(cwd: string): string {
+  // Check for virtual environment
+  const venvPaths = [
+    path.join(cwd, '.venv', 'bin', 'python'),
+    path.join(cwd, 'venv', 'bin', 'python'),
+    path.join(cwd, 'env', 'bin', 'python'),
+  ]
+  for (const p of venvPaths) {
+    if (existsSync(p)) return p
+  }
+  // Fall back to system python3
+  return 'python3'
 }

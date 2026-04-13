@@ -1,10 +1,13 @@
 {
-  "name": "@codecheck/scope-snapshot",
+  "name": "@codecheck/output-dashboard",
   "version": "0.1.0",
-  "description": "CodeCheck scope plugin — generates React component snapshot tests (Jest + React Testing Library)",
+  "description": "CodeCheck output plugin — web dashboard showing test results with pass rates, history, and flakiness detection",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "codecheck-serve": "./dist/bin.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -15,7 +18,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --clean",
+    "build": "tsup src/index.ts src/bin.ts --format esm --dts --clean",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
@@ -50,9 +53,8 @@
   "keywords": [
     "codecheck",
     "testing",
-    "snapshot",
-    "react",
-    "ai",
-    "code-generation"
+    "dashboard",
+    "web-ui",
+    "ai"
   ]
 }

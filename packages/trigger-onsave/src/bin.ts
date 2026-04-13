@@ -18,7 +18,26 @@ import chalk from 'chalk'
 
 async function main(): Promise<void> {
   const cwd = process.cwd()
-  const watchDir = process.argv[2] ? new URL(process.argv[2], `file://${cwd}/`).pathname : cwd
+  const args = process.argv.slice(2)
+  const isDryRun = args.includes('--dry-run') || args.includes('--dry')
+  const watchArg = args.find((a) => !a.startsWith('--'))
+  const watchDir = watchArg ? new URL(watchArg, `file://${cwd}/`).pathname : cwd
+
+  if (isDryRun) {
+    console.log(chalk.bold.cyan('\n[codecheck-watch] Dry-run mode — watching but not generating tests.\n'))
+    console.log(chalk.dim(`  Watch dir: ${watchDir}`))
+    console.log(chalk.dim('  Files will be reported but CodeCheck will not call the LLM.\n'))
+    const { OnSaveTrigger } = await import('./index.js')
+    const trigger = new OnSaveTrigger({ cwd: watchDir })
+    trigger.onTrigger(async (changedFiles) => {
+      console.log(chalk.dim(`\n[codecheck-watch] [dry-run] ${changedFiles.length} file(s) would be tested:`))
+      for (const f of changedFiles) console.log(chalk.white(`  • ${f}`))
+    })
+    await trigger.start()
+    console.log(chalk.dim('Press Ctrl+C to stop.'))
+    process.on('SIGINT', async () => { await trigger.stop(); process.exit(0) })
+    return
+  }
 
   const apiKey = process.env['ANTHROPIC_API_KEY']
   if (!apiKey) {
