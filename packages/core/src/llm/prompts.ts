@@ -72,6 +72,22 @@ The JSON must match this exact schema:
    - Test language runtime behavior (e.g., "null + 1 = 1" in JavaScript)
    - Are duplicates of each other
 
+9. **Handling dynamic return values (timestamps, random numbers, UUIDs):**
+   - If a function returns a value that changes on every call (e.g., new Date().toISOString(), Math.random(), crypto.randomUUID()), set expectedOutput to the string "__dynamic__".
+   - The test runner will assert that the result is defined and non-null, rather than asserting an exact value.
+   - Example: healthHandler that returns { status: 'ok', timestamp: new Date().toISOString() } — set expectedOutput to the string "__dynamic__"
+
+10. **Handling stateful functions (shared module-level state):**
+    - If a function relies on or mutates module-level state (a Map, counter, array, or any variable declared outside the function), tests can interfere with each other.
+    - In this case, add ONE special test case at the beginning of your testCases array with:
+      - category set to "before-each"
+      - description set to the JavaScript statement(s) needed to reset the state (e.g., "users.clear()" or "counter = 0")
+      - input: null
+      - expectedOutput: null
+      - shouldThrow: false
+    - The generator will emit this as a beforeEach block.
+    - Example: for a getUserHandler that uses a module-level users Map, add: { "category": "before-each", "description": "users.clear()", "input": null, "expectedOutput": null, "shouldThrow": false }
+
 ## Few-Shot Examples
 
 ### Example 1: Simple arithmetic function

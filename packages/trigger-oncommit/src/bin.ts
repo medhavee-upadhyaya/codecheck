@@ -21,6 +21,8 @@ import { FunctionalScopePlugin } from '@codecheck/scope-functional'
 import { SanityScopePlugin } from '@codecheck/scope-sanity'
 import { IntegrationScopePlugin } from '@codecheck/scope-integration'
 import { ApiScopePlugin } from '@codecheck/scope-api'
+import { E2EScopePlugin } from '@codecheck/scope-e2e'
+import { SnapshotScopePlugin } from '@codecheck/scope-snapshot'
 import { TerminalOutputPlugin } from '@codecheck/output-terminal'
 import { getStagedFiles } from './getStagedFiles.js'
 import ora from 'ora'
@@ -34,6 +36,8 @@ const ALL_SCOPE_PLUGINS: Record<string, () => ScopePlugin> = {
   sanity: () => new SanityScopePlugin(),
   integration: () => new IntegrationScopePlugin(),
   api: () => new ApiScopePlugin(),
+  e2e: () => new E2EScopePlugin(),
+  snapshot: () => new SnapshotScopePlugin(),
 }
 
 function buildScopePlugins(testTypes: TestType[]): ScopePlugin[] {
