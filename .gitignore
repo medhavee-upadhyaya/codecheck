@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.codecheck-cache/
+.env
+.env.local
+*.log
+.DS_Store
+coverage/
+tmp/

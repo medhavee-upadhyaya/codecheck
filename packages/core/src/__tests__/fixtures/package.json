@@ -1,0 +1,10 @@
+{
+  "name": "codecheck-test-fixture",
+  "codecheck": {
+    "trigger": "oncommit",
+    "testTypes": ["unit", "smoke"],
+    "output": ["terminal"],
+    "model": "claude-sonnet-4-6",
+    "threshold": 0.9
+  }
+}
