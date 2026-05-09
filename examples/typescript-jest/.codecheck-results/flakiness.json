@@ -1,0 +1,552 @@
+{
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns correct total for multiple items with different prices and quantities": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns correct total for a single item with quantity of 1": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns 0 for an empty array": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns 0 when all items have quantity of 0": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns correct total when item price is 0": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::handles negative price (e.g. discount item) without throwing": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::handles very large price and quantity without overflow": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns NaN when item price is NaN": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::unit::returns correct total for a single item with large quantity": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::smoke::calculateTotal runs without throwing on a typical cart": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "smoke",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::smoke::calculateTotal returns a number type for valid input": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "smoke",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::functional::correctly sums three items with varying prices and quantities": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::functional::returns consistent result for items with fractional prices": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::functional::order of items does not affect the total (commutativity)": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::sanity::calculateTotal returns a non-negative number for a standard cart": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::sanity::calculateTotal does not return null or undefined for a valid cart": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::sanity::returns 0 for an empty cart (sanity check for base case)": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::integration::computes total correctly after combining data from multiple cart sources": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "integration",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::calculateTotal::integration::calculates correct total for a cart with mixed item types (varied prices and quantities)": {
+    "targetName": "calculateTotal",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "integration",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::applies a 10% discount to a subtotal of 100": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::applies a 25% discount to a subtotal of 200": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::applies 0% discount leaving subtotal unchanged": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::applies 100% discount returning zero": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::throws when percent is negative (-1)": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::throws when percent exceeds 100 (101)": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::handles a subtotal of zero with any valid percent": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::handles a negative subtotal with a valid discount percent": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::applies a fractional percent discount correctly": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::unit::handles very large subtotal with a 50% discount": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::smoke::applyDiscount runs without throwing on typical valid inputs": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "smoke",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::smoke::smoke: returns a number type for valid inputs": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "smoke",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::functional::functional: correctly computes discount across a range of percents for the same subtotal": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::functional::functional: a 99% discount on 100 leaves 1 remaining": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::functional::functional: a 1% discount on 100 returns 99": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::sanity::sanity: calling applyDiscount with valid args returns a non-null result": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::sanity::sanity: applyDiscount with 0% discount returns the original subtotal": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::integration::integration: applying a 20% discount to a realistic cart subtotal of 49.99": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "integration",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::applyDiscount::integration::integration: applying a 15% discount to a realistic subtotal of 299.99": {
+    "targetName": "applyDiscount",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "integration",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::returns the name of the highest-priced item in uppercase when multiple items are present": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::returns the single item's name in uppercase when array has one element": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::throws TypeError when items array is empty (accessing name on undefined)": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::throws TypeError when null is passed instead of an array": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::returns the correct top item name when all items have the same price": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::handles items with negative prices and picks the least negative as top": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::handles item with price of zero alongside positive-priced items": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::unit::handles item with Infinity price as the top item": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "unit",
+    "passCount": 0,
+    "failCount": 1,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "failed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::smoke::smoke: topItemDisplay runs and returns a non-empty string for a basic valid cart": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "smoke",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::smoke::smoke: function does not throw for a single-item cart and returns uppercased name": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "smoke",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::functional::functional: correctly identifies the top item across a mixed-price cart of five items": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::functional::functional: returns correct result when the cheapest item is listed first in the array": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::functional::functional: result is entirely uppercase even when item name contains mixed case": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "functional",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::sanity::sanity: function returns a string type for a valid input": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::sanity::sanity: function is callable and does not return null or undefined for valid cart": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "sanity",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::integration::integration: correctly selects the top item from a realistic e-commerce cart with varied prices and names": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "integration",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  },
+  "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts::topItemDisplay::integration::integration: works correctly when cart items have decimal prices close in value": {
+    "targetName": "topItemDisplay",
+    "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+    "testType": "integration",
+    "passCount": 1,
+    "failCount": 0,
+    "totalRuns": 1,
+    "isFlaky": false,
+    "lastStatus": "passed"
+  }
+}

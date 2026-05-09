@@ -11,16 +11,16 @@ export async function getStagedFiles(cwd: string): Promise<string[]> {
   const git = simpleGit({ baseDir: cwd })
   const status = await git.status()
 
-  // Collect staged files that are added (A), modified (M), or renamed (R)
-  const staged = [
-    ...status.staged, // Modified or added (git adds to 'staged' on index status)
-  ]
+  // simple-git returns paths relative to the git repo root, not baseDir,
+  // so we resolve from the repo root.
+  const gitRoot = (await git.revparse(['--show-toplevel'])).trim()
 
-  // simpleGit's status.staged gives index-modified files
-  // We also grab created + renamed explicitly in case simple-git splits them
+  // staged: tracked files modified in the index
+  // created: new files added to the index (only appear here, not in staged)
+  // renamed: files renamed in the index — use the new path
   const all = new Set([
-    ...staged,
-    ...status.created.filter((f) => status.staged.includes(f)),
+    ...status.staged,
+    ...status.created,
     ...status.renamed.map((r) => r.to),
   ])
 
@@ -28,10 +28,18 @@ export async function getStagedFiles(cwd: string): Promise<string[]> {
   const supported = /\.(ts|tsx|js|jsx|mts|cts|mjs|cjs)$/
   const excluded = /\.(test|spec)\.(ts|tsx|js|jsx)$|(^|\/)dist\/|(^|\/)node_modules\//
 
+  // When invoked from a subdirectory, only test files inside that subdirectory.
+  // This matches user intent: `cd examples/foo && git commit` should test files
+  // in examples/foo, not unrelated staged files elsewhere in the repo.
+  const cwdAbs = resolve(cwd)
+
   const result: string[] = []
   for (const rel of all) {
     if (supported.test(rel) && !excluded.test(rel)) {
-      result.push(resolve(cwd, rel))
+      const absolute = resolve(gitRoot, rel)
+      if (absolute === cwdAbs || absolute.startsWith(cwdAbs + '/')) {
+        result.push(absolute)
+      }
     }
   }
 

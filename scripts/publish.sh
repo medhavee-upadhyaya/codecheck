@@ -44,6 +44,7 @@ PACKAGES=(
   "packages/scope-api"
   "packages/scope-e2e"
   "packages/scope-snapshot"
+  "packages/scope-regression"
   "packages/output-terminal"
   "packages/output-github"
   "packages/output-dashboard"

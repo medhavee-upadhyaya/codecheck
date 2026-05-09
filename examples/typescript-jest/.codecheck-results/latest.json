@@ -1,0 +1,468 @@
+{
+  "summary": {
+    "timestamp": "2026-05-08T23:02:44.450Z",
+    "totalTests": 55,
+    "passedTests": 48,
+    "passRate": 0.8727272727272727,
+    "testTypes": [
+      "unit",
+      "smoke",
+      "functional",
+      "sanity",
+      "integration"
+    ],
+    "files": [
+      "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts"
+    ],
+    "durationMs": 20
+  },
+  "results": [
+    {
+      "description": "returns correct total for multiple items with different prices and quantities",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "returns correct total for a single item with quantity of 1",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "returns 0 for an empty array",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "returns 0 when all items have quantity of 0",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "returns correct total when item price is 0",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles negative price (e.g. discount item) without throwing",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles very large price and quantity without overflow",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "returns NaN when item price is NaN",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "returns correct total for a single item with large quantity",
+      "testType": "unit",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "calculateTotal runs without throwing on a typical cart",
+      "testType": "smoke",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "calculateTotal returns a number type for valid input",
+      "testType": "smoke",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "correctly sums three items with varying prices and quantities",
+      "testType": "functional",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 0,
+      "error": "Error: expect(received).toEqual(expected) // deep equality\nExpected: 22.43\nReceived: 27.43\n    at Object.<anonymous> (/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/.codecheck-tmp/calculateTotal-b6e6b569.test.ts:136:5)\n    at Promise.then.completed (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/run.js:316:40)"
+    },
+    {
+      "description": "returns consistent result for items with fractional prices",
+      "testType": "functional",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 0,
+      "error": "Error: expect(received).toEqual(expected) // deep equality\nExpected: 0.7\nReceived: 0.7000000000000001\n    at Object.<anonymous> (/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/.codecheck-tmp/calculateTotal-b6e6b569.test.ts:149:5)\n    at Promise.then.completed (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/run.js:316:40)"
+    },
+    {
+      "description": "order of items does not affect the total (commutativity)",
+      "testType": "functional",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "calculateTotal returns a non-negative number for a standard cart",
+      "testType": "sanity",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "calculateTotal does not return null or undefined for a valid cart",
+      "testType": "sanity",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "returns 0 for an empty cart (sanity check for base case)",
+      "testType": "sanity",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "computes total correctly after combining data from multiple cart sources",
+      "testType": "integration",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "calculates correct total for a cart with mixed item types (varied prices and quantities)",
+      "testType": "integration",
+      "targetName": "calculateTotal",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 0,
+      "error": "Error: expect(received).toEqual(expected) // deep equality\nExpected: 329.94\nReceived: 329.94000000000005\n    at Object.<anonymous> (/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/.codecheck-tmp/calculateTotal-b6e6b569.test.ts:218:5)\n    at Promise.then.completed (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/run.js:316:40)"
+    },
+    {
+      "description": "applies a 10% discount to a subtotal of 100",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "applies a 25% discount to a subtotal of 200",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "applies 0% discount leaving subtotal unchanged",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "applies 100% discount returning zero",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "throws when percent is negative (-1)",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 2
+    },
+    {
+      "description": "throws when percent exceeds 100 (101)",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles a subtotal of zero with any valid percent",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles a negative subtotal with a valid discount percent",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "applies a fractional percent discount correctly",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles very large subtotal with a 50% discount",
+      "testType": "unit",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "applyDiscount runs without throwing on typical valid inputs",
+      "testType": "smoke",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "smoke: returns a number type for valid inputs",
+      "testType": "smoke",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "functional: correctly computes discount across a range of percents for the same subtotal",
+      "testType": "functional",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "functional: a 99% discount on 100 leaves 1 remaining",
+      "testType": "functional",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 1,
+      "error": "Error: expect(received).toEqual(expected) // deep equality\nExpected: 1\nReceived: 1.0000000000000009\n    at Object.<anonymous> (/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/.codecheck-tmp/applyDiscount-38c8ae20.test.ts:61:36)\n    at Promise.then.completed (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/run.js:316:40)"
+    },
+    {
+      "description": "functional: a 1% discount on 100 returns 99",
+      "testType": "functional",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "sanity: calling applyDiscount with valid args returns a non-null result",
+      "testType": "sanity",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "sanity: applyDiscount with 0% discount returns the original subtotal",
+      "testType": "sanity",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "integration: applying a 20% discount to a realistic cart subtotal of 49.99",
+      "testType": "integration",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 0,
+      "error": "Error: expect(received).toEqual(expected) // deep equality\nExpected: 39.992\nReceived: 39.992000000000004\n    at Object.<anonymous> (/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/.codecheck-tmp/applyDiscount-38c8ae20.test.ts:77:38)\n    at Promise.then.completed (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/run.js:316:40)"
+    },
+    {
+      "description": "integration: applying a 15% discount to a realistic subtotal of 299.99",
+      "testType": "integration",
+      "targetName": "applyDiscount",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "returns the name of the highest-priced item in uppercase when multiple items are present",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "returns the single item's name in uppercase when array has one element",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "throws TypeError when items array is empty (accessing name on undefined)",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 3
+    },
+    {
+      "description": "throws TypeError when null is passed instead of an array",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 6,
+      "error": "Error: expect(received).toThrow(expected)\nExpected substring: \"Cannot read properties of null\"\nReceived message:   \"Cannot read properties of undefined (reading 'sort')\"\n      22 | /** Returns the most expensive item's name, uppercased for display. */\n      23 | export function topItemDisplay(items: CartItem[]): string {\n    > 24 |   const top = items.sort((a, b) => b.price - a.price)[0]\n         |                     ^\n      25 |   return top.name.toUpperCase()"
+    },
+    {
+      "description": "returns the correct top item name when all items have the same price",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles items with negative prices and picks the least negative as top",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles item with price of zero alongside positive-priced items",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "handles item with Infinity price as the top item",
+      "testType": "unit",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": false,
+      "duration": 1,
+      "error": "Error: expect(received).toEqual(expected) // deep equality\nExpected: \"PRICELESS\"\nReceived: \"EXPENSIVE\"\n    at Object.<anonymous> (/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/.codecheck-tmp/topItemDisplay-04077cdf.test.ts:95:5)\n    at Promise.then.completed (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:298:28)\n    at new Promise (<anonymous>)\n    at callAsyncCircusFn (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/utils.js:231:10)\n    at _callCircusTest (/Users/medha/Documents/Projects/codecheck/node_modules/jest-circus/build/run.js:316:40)"
+    },
+    {
+      "description": "smoke: topItemDisplay runs and returns a non-empty string for a basic valid cart",
+      "testType": "smoke",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "smoke: function does not throw for a single-item cart and returns uppercased name",
+      "testType": "smoke",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "functional: correctly identifies the top item across a mixed-price cart of five items",
+      "testType": "functional",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "functional: returns correct result when the cheapest item is listed first in the array",
+      "testType": "functional",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "functional: result is entirely uppercase even when item name contains mixed case",
+      "testType": "functional",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 1
+    },
+    {
+      "description": "sanity: function returns a string type for a valid input",
+      "testType": "sanity",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "sanity: function is callable and does not return null or undefined for valid cart",
+      "testType": "sanity",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "integration: correctly selects the top item from a realistic e-commerce cart with varied prices and names",
+      "testType": "integration",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    },
+    {
+      "description": "integration: works correctly when cart items have decimal prices close in value",
+      "testType": "integration",
+      "targetName": "topItemDisplay",
+      "filePath": "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts",
+      "passed": true,
+      "duration": 0
+    }
+  ]
+}

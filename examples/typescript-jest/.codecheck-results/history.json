@@ -1,0 +1,28 @@
+[
+  {
+    "timestamp": "2026-05-08T23:02:44.450Z",
+    "totalTests": 55,
+    "passedTests": 48,
+    "passRate": 0.8727272727272727,
+    "testTypes": [
+      "unit",
+      "smoke",
+      "functional",
+      "sanity",
+      "integration"
+    ],
+    "files": [
+      "/Users/medha/Documents/Projects/codecheck/examples/typescript-jest/src/cart/cart.ts"
+    ],
+    "durationMs": 20
+  },
+  {
+    "timestamp": "2026-05-08T22:56:55.031Z",
+    "totalTests": 0,
+    "passedTests": 0,
+    "passRate": 0,
+    "testTypes": [],
+    "files": [],
+    "durationMs": 0
+  }
+]
