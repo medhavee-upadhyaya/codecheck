@@ -1,0 +1,37 @@
+{
+  "name": "@codecheck/scope-everything",
+  "version": "0.1.0",
+  "description": "CodeCheck scope plugin — test the entire codebase, prioritized by change impact",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@codecheck/core": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.0"
+  },
+  "license": "MIT",
+  "author": { "name": "Medhavee Upadhyaya", "url": "https://github.com/medhavee" },
+  "homepage": "https://github.com/medhavee/codecheck#readme",
+  "repository": { "type": "git", "url": "https://github.com/medhavee/codecheck.git" },
+  "bugs": { "url": "https://github.com/medhavee/codecheck/issues" },
+  "publishConfig": { "access": "public" },
+  "engines": { "node": ">=18.0.0" },
+  "keywords": ["codecheck", "testing", "scope", "full-coverage", "ai"]
+}

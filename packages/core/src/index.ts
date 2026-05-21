@@ -44,7 +44,14 @@ export { extractTargets, extractTargetsFromCode } from './extractor/index.js'
 // LLM
 export { parseLLMResponse, LLMResponseSchema, TestCaseSchema } from './llm/schema.js'
 export { buildSystemPrompt, buildUserPrompt } from './llm/prompts.js'
-export { AnthropicLLMClient, MockLLMClient } from './llm/client.js'
+export {
+  AnthropicLLMClient,
+  OpenAILLMClient,
+  GeminiLLMClient,
+  OllamaLLMClient,
+  MockLLMClient,
+  createLLMClient,
+} from './llm/client.js'
 export type { MockFixture } from './llm/client.js'
 
 // Generator

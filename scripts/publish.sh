@@ -45,11 +45,17 @@ PACKAGES=(
   "packages/scope-e2e"
   "packages/scope-snapshot"
   "packages/scope-regression"
+  "packages/scope-everything"
   "packages/output-terminal"
   "packages/output-github"
   "packages/output-dashboard"
+  "packages/output-report"
+  "packages/output-slack"
+  "packages/output-inline"
   "packages/trigger-oncommit"
   "packages/trigger-onsave"
+  "packages/trigger-onpush"
+  "packages/trigger-ci"
   "packages/codecheck-init"
 )
 

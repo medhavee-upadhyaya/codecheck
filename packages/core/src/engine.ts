@@ -12,7 +12,7 @@ import path from 'node:path'
 import { extractTargets } from './extractor/index.js'
 import { computeCacheKey, getCached, setCached } from './cache/index.js'
 import { generateTestFile } from './generator/index.js'
-import { AnthropicLLMClient } from './llm/client.js'
+import { createLLMClient } from './llm/client.js'
 import { runTests } from './runner/index.js'
 import { loadProfile, saveProfile } from './learning/profile.js'
 import { updateProfile } from './learning/analyzer.js'
@@ -66,9 +66,7 @@ export class CodeCheckEngine {
     this.scopePlugins = scopePlugins
     this.cwd = options.cwd ?? process.cwd()
 
-    this.llmClient =
-      options.llmClient ??
-      new AnthropicLLMClient(process.env['ANTHROPIC_API_KEY'] ?? '')
+    this.llmClient = options.llmClient ?? createLLMClient(config)
 
     this.runner = options.runnerFn ?? runTests
   }

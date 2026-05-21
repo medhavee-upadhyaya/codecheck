@@ -12,6 +12,13 @@ import { LLMApiError, LLMParseError } from '../errors.js'
 import type { CodeCheckConfig, LLMClient, TestCase, TestTarget, TestType } from '../types.js'
 import { buildSystemPrompt, buildUserPrompt } from './prompts.js'
 import { parseLLMResponse } from './schema.js'
+import { OpenAILLMClient } from './openai.js'
+import { GeminiLLMClient } from './gemini.js'
+import { OllamaLLMClient } from './ollama.js'
+
+export { OpenAILLMClient } from './openai.js'
+export { GeminiLLMClient } from './gemini.js'
+export { OllamaLLMClient } from './ollama.js'
 
 // ─── Anthropic Client ─────────────────────────────────────────────────────────
 
@@ -188,4 +195,26 @@ function synthesizeMinimalCases(functionName: string, testType: TestType): TestC
       shouldThrow: false,
     },
   ]
+}
+
+// ─── Provider Factory ─────────────────────────────────────────────────────────
+
+/**
+ * Instantiate the correct LLM client based on config.provider.
+ * Reads API keys from environment variables.
+ */
+export function createLLMClient(config: CodeCheckConfig): LLMClient {
+  switch (config.provider) {
+    case 'openai':
+      return new OpenAILLMClient(process.env['OPENAI_API_KEY'] ?? '')
+    case 'gemini':
+      return new GeminiLLMClient(process.env['GEMINI_API_KEY'] ?? '')
+    case 'ollama':
+      return new OllamaLLMClient(
+        process.env['OLLAMA_BASE_URL'] ?? 'http://localhost:11434/v1',
+      )
+    case 'anthropic':
+    default:
+      return new AnthropicLLMClient(process.env['ANTHROPIC_API_KEY'] ?? '')
+  }
 }

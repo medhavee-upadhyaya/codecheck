@@ -1,0 +1,54 @@
+{
+  "name": "@codecheck/trigger-ci",
+  "version": "0.1.0",
+  "description": "CodeCheck trigger plugin — runs in CI (GitHub Actions, GitLab CI, etc.)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "codecheck-ci": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts src/bin.ts --format esm --dts --clean",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@codecheck/core": "0.1.0",
+    "@codecheck/output-dashboard": "0.1.0",
+    "@codecheck/output-github": "0.1.0",
+    "@codecheck/output-terminal": "0.1.0",
+    "@codecheck/scope-api": "0.1.0",
+    "@codecheck/scope-e2e": "0.1.0",
+    "@codecheck/scope-functional": "0.1.0",
+    "@codecheck/scope-integration": "0.1.0",
+    "@codecheck/scope-regression": "0.1.0",
+    "@codecheck/scope-sanity": "0.1.0",
+    "@codecheck/scope-smoke": "0.1.0",
+    "@codecheck/scope-snapshot": "0.1.0",
+    "@codecheck/scope-unit": "0.1.0",
+    "chalk": "^5.4.1",
+    "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.0"
+  },
+  "license": "MIT",
+  "author": { "name": "Medhavee Upadhyaya", "url": "https://github.com/medhavee" },
+  "homepage": "https://github.com/medhavee/codecheck#readme",
+  "repository": { "type": "git", "url": "https://github.com/medhavee/codecheck.git" },
+  "bugs": { "url": "https://github.com/medhavee/codecheck/issues" },
+  "publishConfig": { "access": "public" },
+  "engines": { "node": ">=18.0.0" },
+  "keywords": ["codecheck", "testing", "ci", "github-actions", "ai"]
+}

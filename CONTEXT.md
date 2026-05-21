@@ -2,10 +2,10 @@
 
 > This file is auto-updated at the end of every session. Read this first.
 
-## Current Phase: SESSION 10 COMPLETE ✅ — Adaptive Learning + Human-readable Output
+## Current Phase: SESSION 12 COMPLETE ✅ — All Missing Packages Built
 
-**Last updated:** 2026-04-13  
-**Status:** 16 packages, 297 tests, all passing.
+**Last updated:** 2026-05-20  
+**Status:** 22 packages, 352 tests, all passing.
 
 ---
 
@@ -25,6 +25,55 @@ pytest generator + runner, examples/python-pytest, --dry-run for trigger-oncommi
 
 ### Session 8 ✅ — Dashboard + publish prep
 output-dashboard, codecheck-serve, publish metadata, scripts/publish.sh
+
+### Session 12 (2026-05-20) ✅ COMPLETE — All Missing Packages Built
+
+**New packages (6):**
+- `packages/trigger-onpush/` — pre-push hook via husky; `codecheck-push` bin; gets files changed since origin/HEAD
+- `packages/trigger-ci/` — GitHub Actions native; `codecheck-ci` bin; reads GITHUB_BASE_REF/GITHUB_BEFORE/GITHUB_SHA; writes step summary; posts GitHub PR comment + terminal + dashboard
+- `packages/scope-everything/` — full codebase sweep; discovers ALL source files; prioritizes changed files first, then sorted by recency
+- `packages/output-report/` — writes `.codecheck-results/report.json` (machine-readable) + `report.html` (human-readable) after every run
+- `packages/output-slack/` — posts to Slack via `SLACK_WEBHOOK_URL` webhook; skips silently if env not set
+- `packages/output-inline/` — VS Code extension; reads `latest.json` and shows red underline diagnostics on failing functions; pure parsing logic is separately unit-tested
+
+**Updated packages:**
+- `trigger-oncommit/bin.ts` — now uses `createLLMClient(config)` instead of hardcoded `AnthropicLLMClient`; provider-aware API key check
+- `trigger-onsave/bin.ts` — same update
+- `scripts/publish.sh` — added all 6 new packages in correct dependency order
+
+**VS Code extension note:** `output-inline` is scaffolded as a proper VS Code extension. Publishing goes to VS Code Marketplace via `vsce`, not npm. Run `npm install -g @vscode/vsce && vsce package` to produce a `.vsix` file.
+
+**Error safety guarantees (all triggers):**
+- Any unexpected error exits 0 (never blocks commit/push/CI) unless `failOnError: true`
+- API key missing → silent skip, not an error
+- Ollama provider → no key required
+
+**Total tests:** 352 (was 313)
+
+### Session 11 (2026-05-20) ✅ COMPLETE — All 4 LLM Providers
+
+**New files:**
+- `packages/core/src/llm/openai.ts` — `OpenAILLMClient implements LLMClient`
+- `packages/core/src/llm/gemini.ts` — `GeminiLLMClient implements LLMClient` (uses `@google/generative-ai`)
+- `packages/core/src/llm/ollama.ts` — `OllamaLLMClient implements LLMClient` (reuses `openai` package with custom baseURL pointing at localhost:11434)
+
+**Updated files:**
+- `packages/core/src/llm/client.ts` — added `createLLMClient(config)` factory, re-exports all 3 new clients
+- `packages/core/src/engine.ts` — uses `createLLMClient(config)` instead of hardcoded `AnthropicLLMClient`
+- `packages/core/src/index.ts` — exports `OpenAILLMClient`, `GeminiLLMClient`, `OllamaLLMClient`, `createLLMClient`
+- `packages/core/package.json` — added `openai` and `@google/generative-ai` dependencies
+
+**New tests:** `packages/core/src/__tests__/llm-providers.test.ts` — 16 new tests
+- 4 tests per provider (happy path, API error, empty response, parse error)
+- 5 factory tests (one per provider + unknown-defaults-to-anthropic)
+
+**Provider env vars:**
+- `ANTHROPIC_API_KEY` (existing)
+- `OPENAI_API_KEY` (new)
+- `GEMINI_API_KEY` (new)
+- `OLLAMA_BASE_URL` (new, defaults to `http://localhost:11434/v1`)
+
+**Total tests:** 313 (was 297)
 
 ### Session 10 (2026-04-13) ✅ COMPLETE — Adaptive Learning + Plain-English Output
 

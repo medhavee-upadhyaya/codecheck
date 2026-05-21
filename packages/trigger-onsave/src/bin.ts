@@ -9,7 +9,7 @@
  * Requires ANTHROPIC_API_KEY in environment.
  */
 
-import { loadConfig, CodeCheckEngine, AnthropicLLMClient } from '@codecheck/core'
+import { loadConfig, CodeCheckEngine, createLLMClient } from '@codecheck/core'
 import { UnitScopePlugin } from '@codecheck/scope-unit'
 import { SmokeScopePlugin } from '@codecheck/scope-smoke'
 import { TerminalOutputPlugin } from '@codecheck/output-terminal'
@@ -39,12 +39,6 @@ async function main(): Promise<void> {
     return
   }
 
-  const apiKey = process.env['ANTHROPIC_API_KEY']
-  if (!apiKey) {
-    console.error(chalk.red('[codecheck-watch] ANTHROPIC_API_KEY is not set. Exiting.'))
-    process.exit(1)
-  }
-
   let config
   try {
     config = await loadConfig(cwd)
@@ -53,9 +47,20 @@ async function main(): Promise<void> {
     process.exit(1)
   }
 
+  const providerKeyMap: Record<string, string> = {
+    openai: 'OPENAI_API_KEY',
+    gemini: 'GEMINI_API_KEY',
+    anthropic: 'ANTHROPIC_API_KEY',
+  }
+  const requiredKey = providerKeyMap[config.provider] ?? 'ANTHROPIC_API_KEY'
+  if (config.provider !== 'ollama' && !process.env[requiredKey]) {
+    console.error(chalk.red(`[codecheck-watch] ${requiredKey} is not set. Exiting.`))
+    process.exit(1)
+  }
+
   const scopePlugins = [new UnitScopePlugin(), new SmokeScopePlugin()]
   const outputPlugin = new TerminalOutputPlugin()
-  const llmClient = new AnthropicLLMClient(apiKey)
+  const llmClient = createLLMClient(config)
 
   const trigger = new OnSaveTrigger({ cwd: watchDir })
 

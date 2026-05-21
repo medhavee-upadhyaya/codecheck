@@ -13,7 +13,7 @@
  * failOnError is explicitly set to true in the project config.
  */
 
-import { loadConfig, CodeCheckEngine, AnthropicLLMClient } from '@codecheck/core'
+import { loadConfig, CodeCheckEngine, createLLMClient } from '@codecheck/core'
 import type { ScopePlugin, TestType } from '@codecheck/core'
 import { UnitScopePlugin } from '@codecheck/scope-unit'
 import { SmokeScopePlugin } from '@codecheck/scope-smoke'
@@ -110,13 +110,18 @@ async function main(): Promise<void> {
   ]
 
   // ─── LLM Client ───────────────────────────────────────────────────────────
-  const apiKey = process.env['ANTHROPIC_API_KEY']
-  if (!apiKey) {
-    console.error(chalk.yellow('\n[CodeCheck] ANTHROPIC_API_KEY not set — skipping.'))
+  const providerKeyMap: Record<string, string> = {
+    openai: 'OPENAI_API_KEY',
+    gemini: 'GEMINI_API_KEY',
+    anthropic: 'ANTHROPIC_API_KEY',
+  }
+  const requiredKey = providerKeyMap[config.provider] ?? 'ANTHROPIC_API_KEY'
+  if (config.provider !== 'ollama' && !process.env[requiredKey]) {
+    console.error(chalk.yellow(`\n[CodeCheck] ${requiredKey} not set — skipping.`))
     process.exit(0)
   }
 
-  const llmClient = new AnthropicLLMClient(apiKey)
+  const llmClient = createLLMClient(config)
 
   // ─── Spinner ──────────────────────────────────────────────────────────────
   const spinner = ora({
