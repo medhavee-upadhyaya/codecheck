@@ -8,3 +8,9 @@ dist/
 .DS_Store
 coverage/
 tmp/
+
+# Internal docs (kept locally, not in repo)
+CONTEXT.md
+CODECHECK_SPEC.md
+CLAUDE.md
+docs/
