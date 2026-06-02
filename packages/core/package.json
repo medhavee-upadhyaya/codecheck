@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/core",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "AI engine for CodeCheck — reads code, generates and runs tests automatically",
   "type": "module",
   "main": "./dist/index.js",
@@ -40,13 +40,13 @@
     "name": "Medhavee Upadhyaya",
     "url": "https://github.com/medhavee"
   },
-  "homepage": "https://github.com/medhavee/codecheck#readme",
+  "homepage": "https://github.com/medhavee-upadhyaya/codecheck#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/medhavee/codecheck.git"
+    "url": "https://github.com/medhavee-upadhyaya/codecheck.git"
   },
   "bugs": {
-    "url": "https://github.com/medhavee/codecheck/issues"
+    "url": "https://github.com/medhavee-upadhyaya/codecheck/issues"
   },
   "publishConfig": {
     "access": "public"

@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/scope-e2e",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CodeCheck scope plugin — generates Playwright E2E tests (full user flows in a real browser)",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,7 +20,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "0.1.0"
+    "@codecheck/core": "0.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -33,13 +33,13 @@
     "name": "Medhavee Upadhyaya",
     "url": "https://github.com/medhavee"
   },
-  "homepage": "https://github.com/medhavee/codecheck#readme",
+  "homepage": "https://github.com/medhavee-upadhyaya/codecheck#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/medhavee/codecheck.git"
+    "url": "https://github.com/medhavee-upadhyaya/codecheck.git"
   },
   "bugs": {
-    "url": "https://github.com/medhavee/codecheck/issues"
+    "url": "https://github.com/medhavee-upadhyaya/codecheck/issues"
   },
   "publishConfig": {
     "access": "public"

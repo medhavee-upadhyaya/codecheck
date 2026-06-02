@@ -59,6 +59,10 @@ PACKAGES=(
   "packages/codecheck-init"
 )
 
+if [ -n "${NPM_TOKEN:-}" ]; then
+  npm set //registry.npmjs.org/:_authToken="${NPM_TOKEN}"
+fi
+
 echo "  [3/3] Publishing packages..."
 for pkg in "${PACKAGES[@]}"; do
   name=$(node -p "require('./$pkg/package.json').name")

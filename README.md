@@ -514,7 +514,7 @@ TypeScript, JavaScript, and Python. Jest, Vitest, and Pytest test runners.
 ## Contributing
 
 ```bash
-git clone https://github.com/medhavee/codecheck
+git clone https://github.com/medhavee-upadhyaya/codecheck
 cd codecheck
 npm install
 npm run build

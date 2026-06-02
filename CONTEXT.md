@@ -2,14 +2,27 @@
 
 > This file is auto-updated at the end of every session. Read this first.
 
-## Current Phase: SESSION 12 COMPLETE ✅ — All Missing Packages Built
+## Current Phase: SESSION 13 COMPLETE ✅ — Published to npm
 
-**Last updated:** 2026-05-20  
-**Status:** 22 packages, 352 tests, all passing.
+**Last updated:** 2026-05-21  
+**Status:** 22 packages, 352 tests, all passing. All packages published to npm under @codecheck scope.
 
 ---
 
 ## What Has Been Built
+
+### Session 13 (2026-05-21) ✅ COMPLETE — Published to npm
+
+All 22 packages published to npm under the `@codecheck` org scope.
+
+**Setup required:**
+- npm granular access token with "bypass 2FA" enabled
+- npm organization `codecheck` created at npmjs.com (registers the `@codecheck` scope)
+- Publish: `NPM_TOKEN=... ./scripts/publish.sh`
+
+**Live packages:** @codecheck/core, all 10 scopes, all 6 outputs, all 4 triggers, codecheck-init
+
+---
 
 ### Sessions 1–4 ✅ — Phase 1 MVP
 Core engine + scope-unit + scope-smoke + output-terminal + trigger-oncommit + examples/typescript-jest
