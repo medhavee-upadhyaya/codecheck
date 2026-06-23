@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/output-inline",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "CodeCheck VS Code extension — inline diagnostics showing failed tests as red underlines",
   "type": "module",
   "main": "./dist/extension.js",
@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "0.1.1"
+    "@codecheck/core": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

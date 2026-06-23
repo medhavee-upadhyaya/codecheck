@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/init",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "CodeCheck init wizard — interactive CLI to set up CodeCheck in any project in under 60 seconds",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,7 +23,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "0.1.1",
+    "@codecheck/core": "^0.2.0",
     "chalk": "^5.4.1",
     "inquirer": "^12.0.0"
   },

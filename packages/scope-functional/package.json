@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/scope-functional",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "CodeCheck scope plugin — generates functional tests (input/output behavior, no mocks)",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,7 +20,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "0.1.1"
+    "@codecheck/core": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/core",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "AI engine for CodeCheck — reads code, generates and runs tests automatically",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,11 +22,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.88.0",
+    "@anthropic-ai/sdk": "^0.104.0",
     "@google/generative-ai": "^0.24.1",
     "@typescript-eslint/typescript-estree": "^8.58.0",
     "cosmiconfig": "^9.0.1",
-    "openai": "^6.38.0",
+    "openai": "^6.43.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "codecheck-monorepo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -17,9 +17,9 @@
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
-    "prettier": "^3.0.0",
-    "rimraf": "^6.0.0",
-    "typescript": "^5.6.0"
+    "prettier": "^3.8.0",
+    "rimraf": "^6.1.0",
+    "typescript": "^5.8.0"
   },
   "engines": {
     "node": ">=18.0.0"
