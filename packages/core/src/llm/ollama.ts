@@ -3,6 +3,7 @@ import { LLMApiError, LLMParseError } from '../errors.js'
 import type { CodeCheckConfig, LLMClient, TestCase, TestTarget, TestType } from '../types.js'
 import { buildSystemPrompt, buildUserPrompt } from './prompts.js'
 import { parseLLMResponse } from './schema.js'
+import { withRetry } from './retry.js'
 
 /**
  * OllamaLLMClient — runs against a local Ollama instance.
@@ -35,20 +36,21 @@ export class OllamaLLMClient implements LLMClient {
     let responseText: string
 
     try {
-      const response = await this.client.chat.completions.create({
-        model: config.model,
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-        // Note: json_object format depends on the Ollama model — omit it to
-        // stay compatible with all models (the system prompt requests JSON output)
-      })
+      responseText = await withRetry(async () => {
+        const response = await this.client.chat.completions.create({
+          model: config.model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+        })
 
-      responseText = response.choices[0]?.message.content ?? ''
-      if (!responseText) {
-        throw new LLMApiError('Ollama returned an empty response')
-      }
+        const text = response.choices[0]?.message.content ?? ''
+        if (!text) {
+          throw new LLMApiError('Ollama returned an empty response')
+        }
+        return text
+      })
     } catch (err) {
       if (err instanceof LLMApiError) throw err
       throw new LLMApiError(

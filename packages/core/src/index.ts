@@ -53,6 +53,7 @@ export {
   createLLMClient,
 } from './llm/client.js'
 export type { MockFixture } from './llm/client.js'
+export { withRetry } from './llm/retry.js'
 
 // Generator
 export { generateTestFile } from './generator/index.js'

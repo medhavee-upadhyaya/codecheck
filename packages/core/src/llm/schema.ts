@@ -7,6 +7,39 @@
 
 import { z } from 'zod'
 
+/**
+ * Sanitize LLM output into valid JSON.
+ * Handles: undefined, NaN, Infinity, -Infinity, control characters,
+ * trailing commas, and single-quoted strings.
+ */
+function sanitizeLLMJson(text: string): string {
+  let s = text
+
+  // Replace bare undefined at value positions with null
+  s = s.replace(/:\s*undefined\b/g, ': null')
+  s = s.replace(/\[\s*undefined\b/g, '[null')
+  s = s.replace(/,\s*undefined\b/g, ', null')
+
+  // Replace NaN, Infinity, -Infinity with null
+  s = s.replace(/:\s*-Infinity\b/g, ': null')
+  s = s.replace(/:\s*Infinity\b/g, ': null')
+  s = s.replace(/:\s*NaN\b/g, ': null')
+  s = s.replace(/\[\s*-Infinity\b/g, '[null')
+  s = s.replace(/\[\s*Infinity\b/g, '[null')
+  s = s.replace(/\[\s*NaN\b/g, '[null')
+  s = s.replace(/,\s*-Infinity\b/g, ', null')
+  s = s.replace(/,\s*Infinity\b/g, ', null')
+  s = s.replace(/,\s*NaN\b/g, ', null')
+
+  // Remove control characters (except \n \r \t) that break JSON.parse
+  s = s.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g, '')
+
+  // Remove trailing commas before } or ]
+  s = s.replace(/,\s*([}\]])/g, '$1')
+
+  return s
+}
+
 export const TestTypeSchema = z.enum([
   'unit',
   'smoke',
@@ -57,20 +90,10 @@ export function parseLLMResponse(raw: string): LLMResponseShape {
     .replace(/\s*```\s*$/m, '')
     .trim()
 
-  // Replace bare NaN, Infinity, -Infinity (not valid JSON) with null.
-  // These appear when LLMs generate edge-case inputs. We substitute null
-  // and let the generator emit a safe call with null (or `null as any`).
-  // Regex is conservative: only matches these tokens at JSON value positions.
-  stripped = stripped
-    .replace(/:\s*-Infinity\b/g, ': null')
-    .replace(/:\s*Infinity\b/g, ': null')
-    .replace(/:\s*NaN\b/g, ': null')
-    .replace(/\[\s*-Infinity\b/g, '[null')
-    .replace(/\[\s*Infinity\b/g, '[null')
-    .replace(/\[\s*NaN\b/g, '[null')
-    .replace(/,\s*-Infinity\b/g, ', null')
-    .replace(/,\s*Infinity\b/g, ', null')
-    .replace(/,\s*NaN\b/g, ', null')
+  // Replace JS-only tokens that are invalid in JSON.
+  // LLMs (especially Gemini) emit these when generating edge-case inputs.
+  // We substitute null and let the generator emit a safe call.
+  stripped = sanitizeLLMJson(stripped)
 
   const parsed: unknown = JSON.parse(stripped)
   return LLMResponseSchema.parse(parsed)

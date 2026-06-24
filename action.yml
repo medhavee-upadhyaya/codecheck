@@ -1,0 +1,53 @@
+name: 'CodeCheck — AI Test Generation'
+description: 'Automatically generate and run AI-powered tests on changed files in your pull request'
+author: 'Medhavee Upadhyaya'
+
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  provider:
+    description: 'LLM provider to use (anthropic, openai, gemini, ollama)'
+    required: false
+    default: 'anthropic'
+  model:
+    description: 'Model name (e.g. claude-sonnet-4-20250514, gpt-4o, gemini-2.5-flash)'
+    required: false
+  test-types:
+    description: 'Comma-separated test types to generate (unit, smoke, functional, sanity, integration, api, e2e, snapshot, regression)'
+    required: false
+    default: 'unit,smoke'
+  threshold:
+    description: 'Minimum pass rate (0.0 to 1.0) before failing the check'
+    required: false
+    default: '0.8'
+  fail-on-error:
+    description: 'Whether to fail the CI job when tests fail'
+    required: false
+    default: 'false'
+  anthropic-api-key:
+    description: 'Anthropic API key (if using anthropic provider)'
+    required: false
+  openai-api-key:
+    description: 'OpenAI API key (if using openai provider)'
+    required: false
+  gemini-api-key:
+    description: 'Gemini API key (if using gemini provider)'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Run CodeCheck
+      shell: bash
+      env:
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+        GEMINI_API_KEY: ${{ inputs.gemini-api-key }}
+      run: npx -y @codecheck/trigger-ci

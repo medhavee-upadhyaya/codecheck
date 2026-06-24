@@ -1,7 +1,9 @@
 {
-  "name": "@codecheck/output-inline",
+  "name": "codecheck-inline",
+  "displayName": "CodeCheck — AI Test Diagnostics",
+  "publisher": "codecheck",
   "version": "0.2.0",
-  "description": "CodeCheck VS Code extension — inline diagnostics showing failed tests as red underlines",
+  "description": "Inline diagnostics showing AI-generated test failures as red underlines. Works with CodeCheck's test generation engine.",
   "type": "module",
   "main": "./dist/extension.js",
   "types": "./dist/extension.d.ts",
@@ -12,6 +14,7 @@
     }
   },
   "files": ["dist"],
+  "categories": ["Testing", "Linters"],
   "engines": {
     "vscode": "^1.80.0",
     "node": ">=18.0.0"

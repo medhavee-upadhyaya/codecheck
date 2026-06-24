@@ -12,6 +12,7 @@ import { LLMApiError, LLMParseError } from '../errors.js'
 import type { CodeCheckConfig, LLMClient, TestCase, TestTarget, TestType } from '../types.js'
 import { buildSystemPrompt, buildUserPrompt } from './prompts.js'
 import { parseLLMResponse } from './schema.js'
+import { withRetry } from './retry.js'
 import { OpenAILLMClient } from './openai.js'
 import { GeminiLLMClient } from './gemini.js'
 import { OllamaLLMClient } from './ollama.js'
@@ -44,32 +45,32 @@ export class AnthropicLLMClient implements LLMClient {
     let responseText: string
 
     try {
-      const message = await this.client.messages.create({
-        model: config.model,
-        max_tokens: 4096,
-        system: [
-          {
-            type: 'text',
-            text: systemPrompt,
-            // Prompt caching: the system prompt is static and large — cache it.
-            // Calls 2+ for the same model reuse the cache, cutting cost ~90%.
-            cache_control: { type: 'ephemeral' },
-          },
-        ],
-        messages: [
-          {
-            role: 'user',
-            content: userPrompt,
-          },
-        ],
+      responseText = await withRetry(async () => {
+        const message = await this.client.messages.create({
+          model: config.model,
+          max_tokens: 4096,
+          system: [
+            {
+              type: 'text',
+              text: systemPrompt,
+              cache_control: { type: 'ephemeral' },
+            },
+          ],
+          messages: [
+            {
+              role: 'user',
+              content: userPrompt,
+            },
+          ],
+        })
+
+        const firstBlock = message.content[0]
+        if (firstBlock == null || firstBlock.type !== 'text') {
+          throw new LLMApiError('Unexpected response format: no text block in response')
+        }
+
+        return firstBlock.text
       })
-
-      const firstBlock = message.content[0]
-      if (firstBlock == null || firstBlock.type !== 'text') {
-        throw new LLMApiError('Unexpected response format: no text block in response')
-      }
-
-      responseText = firstBlock.text
     } catch (err) {
       if (err instanceof LLMApiError) throw err
       if (err instanceof Anthropic.APIError) {

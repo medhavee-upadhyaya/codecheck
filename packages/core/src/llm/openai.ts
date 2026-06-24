@@ -3,6 +3,7 @@ import { LLMApiError, LLMParseError } from '../errors.js'
 import type { CodeCheckConfig, LLMClient, TestCase, TestTarget, TestType } from '../types.js'
 import { buildSystemPrompt, buildUserPrompt } from './prompts.js'
 import { parseLLMResponse } from './schema.js'
+import { withRetry } from './retry.js'
 
 export class OpenAILLMClient implements LLMClient {
   private readonly client: OpenAI
@@ -26,19 +27,22 @@ export class OpenAILLMClient implements LLMClient {
     let responseText: string
 
     try {
-      const response = await this.client.chat.completions.create({
-        model: config.model,
-        response_format: { type: 'json_object' },
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-      })
+      responseText = await withRetry(async () => {
+        const response = await this.client.chat.completions.create({
+          model: config.model,
+          response_format: { type: 'json_object' },
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+        })
 
-      responseText = response.choices[0]?.message.content ?? ''
-      if (!responseText) {
-        throw new LLMApiError('OpenAI returned an empty response')
-      }
+        const text = response.choices[0]?.message.content ?? ''
+        if (!text) {
+          throw new LLMApiError('OpenAI returned an empty response')
+        }
+        return text
+      })
     } catch (err) {
       if (err instanceof LLMApiError) throw err
       throw new LLMApiError(err instanceof Error ? err.message : String(err))

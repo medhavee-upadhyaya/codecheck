@@ -3,6 +3,7 @@ import { LLMApiError, LLMParseError } from '../errors.js'
 import type { CodeCheckConfig, LLMClient, TestCase, TestTarget, TestType } from '../types.js'
 import { buildSystemPrompt, buildUserPrompt } from './prompts.js'
 import { parseLLMResponse } from './schema.js'
+import { withRetry } from './retry.js'
 
 export class GeminiLLMClient implements LLMClient {
   private readonly genAI: GoogleGenerativeAI
@@ -23,20 +24,23 @@ export class GeminiLLMClient implements LLMClient {
     let responseText: string
 
     try {
-      const model = this.genAI.getGenerativeModel({
-        model: config.model,
-        systemInstruction: systemPrompt,
-        generationConfig: {
-          responseMimeType: 'application/json',
-        },
+      responseText = await withRetry(async () => {
+        const model = this.genAI.getGenerativeModel({
+          model: config.model,
+          systemInstruction: systemPrompt,
+          generationConfig: {
+            responseMimeType: 'application/json',
+          },
+        })
+
+        const result = await model.generateContent(userPrompt)
+        const text = result.response.text()
+
+        if (!text) {
+          throw new LLMApiError('Gemini returned an empty response')
+        }
+        return text
       })
-
-      const result = await model.generateContent(userPrompt)
-      responseText = result.response.text()
-
-      if (!responseText) {
-        throw new LLMApiError('Gemini returned an empty response')
-      }
     } catch (err) {
       if (err instanceof LLMApiError) throw err
       throw new LLMApiError(err instanceof Error ? err.message : String(err))
