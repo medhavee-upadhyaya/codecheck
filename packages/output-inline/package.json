@@ -1,7 +1,7 @@
 {
   "name": "codecheck-inline",
   "displayName": "CodeCheck — AI Test Diagnostics",
-  "publisher": "codecheck",
+  "publisher": "codecheck-dev",
   "version": "0.2.0",
   "description": "Inline diagnostics showing AI-generated test failures as red underlines. Works with CodeCheck's test generation engine.",
   "type": "module",
