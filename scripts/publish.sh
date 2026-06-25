@@ -56,6 +56,7 @@ PACKAGES=(
   "packages/trigger-onsave"
   "packages/trigger-onpush"
   "packages/trigger-ci"
+  "packages/mcp-server"
   "packages/codecheck-init"
 )
 
