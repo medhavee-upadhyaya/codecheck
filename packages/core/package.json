@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/core",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "AI engine for CodeCheck — reads code, generates and runs tests automatically",
   "type": "module",
   "main": "./dist/index.js",

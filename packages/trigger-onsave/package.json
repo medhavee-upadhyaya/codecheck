@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/trigger-onsave",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CodeCheck trigger plugin — runs on file save via chokidar file watcher",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,10 +23,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "^0.2.0",
-    "@codecheck/output-terminal": "^0.2.0",
-    "@codecheck/scope-smoke": "^0.2.0",
-    "@codecheck/scope-unit": "^0.2.0",
+    "@codecheck/core": "^0.2.1",
+    "@codecheck/output-terminal": "^0.2.1",
+    "@codecheck/scope-smoke": "^0.2.1",
+    "@codecheck/scope-unit": "^0.2.1",
     "chalk": "^5.4.1",
     "chokidar": "^4.0.0"
   },

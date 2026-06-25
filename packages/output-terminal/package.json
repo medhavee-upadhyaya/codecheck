@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/output-terminal",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CodeCheck output plugin — renders colored test results in the terminal",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,7 +20,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "^0.2.0",
+    "@codecheck/core": "^0.2.1",
     "chalk": "^5.4.1",
     "ora": "^9.0.0"
   },

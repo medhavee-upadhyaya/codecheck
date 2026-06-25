@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/mcp-server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for CodeCheck — lets Claude Code and other AI assistants run AI-generated tests automatically",
   "type": "module",
   "bin": {
@@ -24,16 +24,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "^0.2.0",
-    "@codecheck/scope-api": "^0.2.0",
-    "@codecheck/scope-e2e": "^0.2.0",
-    "@codecheck/scope-functional": "^0.2.0",
-    "@codecheck/scope-integration": "^0.2.0",
-    "@codecheck/scope-regression": "^0.2.0",
-    "@codecheck/scope-sanity": "^0.2.0",
-    "@codecheck/scope-smoke": "^0.2.0",
-    "@codecheck/scope-snapshot": "^0.2.0",
-    "@codecheck/scope-unit": "^0.2.0",
+    "@codecheck/core": "^0.2.1",
+    "@codecheck/scope-api": "^0.2.1",
+    "@codecheck/scope-e2e": "^0.2.1",
+    "@codecheck/scope-functional": "^0.2.1",
+    "@codecheck/scope-integration": "^0.2.1",
+    "@codecheck/scope-regression": "^0.2.1",
+    "@codecheck/scope-sanity": "^0.2.1",
+    "@codecheck/scope-smoke": "^0.2.1",
+    "@codecheck/scope-snapshot": "^0.2.1",
+    "@codecheck/scope-unit": "^0.2.1",
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/output-dashboard",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CodeCheck output plugin — web dashboard showing test results with pass rates, history, and flakiness detection",
   "type": "module",
   "main": "./dist/index.js",
@@ -23,7 +23,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "^0.2.0"
+    "@codecheck/core": "^0.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

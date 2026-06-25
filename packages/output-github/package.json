@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/output-github",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CodeCheck output plugin — posts test results as GitHub PR comments via Octokit",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,7 +20,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "^0.2.0",
+    "@codecheck/core": "^0.2.1",
     "@octokit/rest": "^21.0.0"
   },
   "devDependencies": {

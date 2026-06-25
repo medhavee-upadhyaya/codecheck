@@ -1,6 +1,6 @@
 {
   "name": "@codecheck/scope-everything",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CodeCheck scope plugin — test the entire codebase, prioritized by change impact",
   "type": "module",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@codecheck/core": "^0.2.0"
+    "@codecheck/core": "^0.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
