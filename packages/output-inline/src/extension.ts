@@ -84,7 +84,8 @@ async function refreshDiagnostics(filePath: string): Promise<void> {
     const uri = vscode.Uri.file(absPath)
     const diagnostics = fileRecords.map((r) => {
       const range = new vscode.Range(r.line, 0, r.endLine, Number.MAX_SAFE_INTEGER)
-      const diag = new vscode.Diagnostic(range, r.message, vscode.DiagnosticSeverity.Warning)
+      const vscodeSeverity = r.severity === 'error' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
+      const diag = new vscode.Diagnostic(range, r.message, vscodeSeverity)
       diag.source = 'CodeCheck'
       diag.code = 'test-failure'
       return diag

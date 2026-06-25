@@ -7,13 +7,18 @@
  * Keeping this file free of the vscode module allows unit testing with vitest.
  */
 
+export type DiagnosticSeverity = 'error' | 'warning'
+
 export interface DiagnosticRecord {
   filePath: string
   functionName: string
   message: string
+  severity: DiagnosticSeverity
   line: number
   endLine: number
 }
+
+const CRASH_PATTERNS = /crash|TypeError|ReferenceError|null.?check|undefined|Cannot read properties|is not a function|is not defined/i
 
 export interface LatestRunShape {
   results: Array<{
@@ -60,10 +65,14 @@ export function parseDiagnostics(raw: string): DiagnosticRecord[] {
       .map((x) => `• ${x.description}${x.error ? `: ${x.error.split('\n')[0]}` : ''}`)
       .join('\n')
 
+    const hasCrash = failedInFile.some((x) => x.error != null && CRASH_PATTERNS.test(x.error))
+    const severity: DiagnosticSeverity = hasCrash ? 'error' : 'warning'
+
     records.push({
       filePath: r.filePath,
       functionName: r.targetName,
       message: `CodeCheck: ${failedInFile.length} test(s) failed for \`${r.targetName}\`\n${messages}`,
+      severity,
       line: Math.max(0, (r.startLine ?? 1) - 1),
       endLine: Math.max(0, (r.endLine ?? r.startLine ?? 1) - 1),
     })

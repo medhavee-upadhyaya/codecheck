@@ -85,6 +85,26 @@ describe('parseDiagnostics', () => {
     })
     expect(parseDiagnostics(allPass)).toEqual([])
   })
+
+  it('sets severity to error for crash errors (TypeError, null check)', () => {
+    const crashJson = JSON.stringify({
+      results: [
+        { filePath: '/f.ts', targetName: 'fn', description: 'null crash', passed: false, error: "TypeError: Cannot read properties of null", startLine: 1, endLine: 3 },
+      ],
+    })
+    const records = parseDiagnostics(crashJson)
+    expect(records[0]?.severity).toBe('error')
+  })
+
+  it('sets severity to warning for assertion failures', () => {
+    const assertionJson = JSON.stringify({
+      results: [
+        { filePath: '/f.ts', targetName: 'fn', description: 'wrong output', passed: false, error: "Expected: 3, Received: 4", startLine: 1, endLine: 3 },
+      ],
+    })
+    const records = parseDiagnostics(assertionJson)
+    expect(records[0]?.severity).toBe('warning')
+  })
 })
 
 describe('groupByFile', () => {
