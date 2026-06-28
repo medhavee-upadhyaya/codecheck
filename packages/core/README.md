@@ -2,7 +2,7 @@
 
 The AI engine behind [CodeCheck](https://github.com/medhavee-upadhyaya/codecheck) — reads your source files, generates test cases with Claude / OpenAI / Gemini / Ollama, runs them, and returns structured results.
 
-[![CodeCheck demo](https://raw.githubusercontent.com/medhavee-upadhyaya/codecheck/main/assets/demo-thumbnail.png)](https://github.com/medhavee-upadhyaya/codecheck#codecheck)
+[![CodeCheck demo](https://raw.githubusercontent.com/medhavee-upadhyaya/codecheck/main/assets/demo-thumbnail.png)](https://github.com/medhavee-upadhyaya/codecheck)
 
 Most projects don't install this directly. Use a trigger package instead:
 
