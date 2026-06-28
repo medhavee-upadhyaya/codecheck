@@ -4,6 +4,8 @@
 
 CodeCheck is a modular AI testing tool that reads your code, generates meaningful tests, runs them, and reports results — automatically, on every commit, push, or save. No test files to write. No framework to learn.
 
+<video src="assets/demo.mp4" controls width="100%"></video>
+
 ```bash
 npm install -D @codecheck/trigger-oncommit @codecheck/scope-unit @codecheck/output-terminal
 npx codecheck-init
