@@ -354,6 +354,8 @@ npx codecheck-serve --port 8080
 
 `@codecheck/output-inline` is a VS Code extension that shows red underlines on functions whose tests failed — like ESLint, but for CodeCheck results.
 
+![VS Code inline diagnostics — red underline on a function that crashed on null input](assets/vscode-inline.png)
+
 ```bash
 cd packages/output-inline
 npx @vscode/vsce package

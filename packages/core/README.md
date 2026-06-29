@@ -4,6 +4,8 @@ The AI engine behind [CodeCheck](https://github.com/medhavee-upadhyaya/codecheck
 
 [![CodeCheck demo](https://raw.githubusercontent.com/medhavee-upadhyaya/codecheck/main/assets/demo-thumbnail.png)](https://github.com/user-attachments/assets/513d05fe-2287-4440-9ea8-daa74fc82fdc)
 
+![VS Code inline diagnostics](https://raw.githubusercontent.com/medhavee-upadhyaya/codecheck/main/assets/vscode-inline.png)
+
 Most projects don't install this directly. Use a trigger package instead:
 
 ```bash
